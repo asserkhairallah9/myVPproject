@@ -1,75 +1,42 @@
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 //JTextField = a GUI textbox component that can be used to add,set or get text.
 
 //for the start panel اسلام
- //add label image for the start panel 
- //for all buttons, change the background color button & dimensions  done
-
-//for the taskNumberPanel اسلام
- //next even if there is no tasks اسر
- //Suppose there is no default no.tasks, the user must enter number to next اسر
- //absolute instead of flow layout done
- //add previous button 
- //limit the no.tasks 
-
-//for the planner panel اسر
- //once start over, suppose delete the old tasks 
- //wedensday has no color done
- //add previous button 
- //can delete task 
+//for all buttons, change the background color button & dimensions  done
+//can delete task 
 //using itemListener, on the checkBox, for striketThrough
 
-//Progress bar اسماء
- //once the taks's checkbox is selected, the progress bar increase
+//this frame now can listen to events.
+//"Action listener interface" exists at java.awt.event library.
 
-public class TaskNumberPanel extends JPanel implements ActionListener //this frame now can listen to events.
-                                                                     //"Action listener interface" exists at java.awt.event library.
-{	
-	private JLabel Label;//label.
-	private static  JTextField TaskCount;//text field to get number of tasks in.
-	private JButton ConfirmButton;//Button.
-	private JButton SwitchButton2 = new JButton(); 
-	private JButton PreviousButton2 = new JButton(); 
-	
-	//defined out of constructor to be global for class.
-	
+public class TaskNumberPanel extends JPanel implements ActionListener{
+
+	private JLabel Label; //label.
+	private static JTextField TaskCount; //text field to get number of tasks in.
+	private JButton ConfirmButton; //Button.
+	private JButton SwitchButton2 = new JButton();
+	private JButton PreviousButton2 = new JButton();
 	ImageIcon background = new ImageIcon("backgroundImg.jpg");
 	private JLabel img = new JLabel(new ImageIcon(background.getImage().getScaledInstance(1400, 800, Image.SCALE_SMOOTH)));
-	TaskNumberPanel()//constructor.
-	{
+
+	//defined out of constructor to be global for class.
+	public TaskNumberPanel(){	//constructor.
 		this.setLayout(null);
 		this.setBackground(Color.BLACK);
-		
 		Label= new JLabel();
 		Label.setText(" How Many Tasks for today?");
-		Label.setForeground(Color.CYAN);//set font color of text.
-		Label.setFont(new Font("MV Boli",Font.PLAIN ,40));//set font of text + the last parameter is the size of text.
+		Label.setForeground(Color.CYAN); //set font color of text.
+		Label.setFont(new Font("MV Boli",Font.PLAIN ,40)); //set font of text + the last parameter is the size of text.
 		Label.setPreferredSize(new Dimension(700,200));
 		Label.setBorder(BorderFactory.createLineBorder(Color.cyan, 4));
 		Label.setBounds(380, 200, 580, 100);
-		
 		TaskCount = new JTextField();
-	    TaskCount.setForeground(Color.black);
+		TaskCount.setForeground(Color.black);
 		TaskCount.setFont(new Font("MV Boli",Font.PLAIN ,40));
 		TaskCount.setBounds(500, 310, 300, 100);
-		 
 		ConfirmButton = new JButton();
 		ConfirmButton.setText("Confirm");
 		ConfirmButton.setPreferredSize(new Dimension(500,100));
@@ -78,79 +45,60 @@ public class TaskNumberPanel extends JPanel implements ActionListener //this fra
 		ConfirmButton.setFont(new Font("MV Boli",Font.PLAIN ,40));
 		ConfirmButton.setBounds(350, 600, 250, 100);
 		ConfirmButton.addActionListener(this);
-
-		
-//		 SwitchButton2.setBounds(700, 600, 250, 100);   // edit it 
-		
-		
-	 SwitchButton2.setBounds(300, 300, 500, 600);
-	 SwitchButton2.setText("Next");
-	 SwitchButton2.setFont(new Font("MV Boli",Font.BOLD ,40));
-	 SwitchButton2.setFocusable(false);
-	 SwitchButton2.setBackground(Color.white);
-	 SwitchButton2.setBounds(700, 600, 250, 100);
-	 SwitchButton2.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
+		SwitchButton2.setBounds(300, 300, 500, 600);
+		SwitchButton2.setText("Next");
+		SwitchButton2.setFont(new Font("MV Boli",Font.BOLD ,40));
+		SwitchButton2.setFocusable(false);
+		SwitchButton2.setBackground(Color.white);
+		SwitchButton2.setBounds(700, 600, 250, 100);
+		SwitchButton2.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
 				if(getTaskCount() != -1){
-				JOptionPane.showMessageDialog(null, "Wishing you a productive day.");
-				Main.planner.GetDefault();
-				Main.changecard("Tasks Panel");
+					JOptionPane.showMessageDialog(null, "Wishing you a productive day.");
+					Main.planner.GetDefault();
+					Main.changecard("Tasks Panel");
 				}
-				else 
+				else
 					JOptionPane.showMessageDialog(null, "Error!!,Please enter a valid number of tasks.");
-		}});
-
-
-	 	 
-	 PreviousButton2 = new JButton();
-	 PreviousButton2.setBounds(40, 650, 250, 100);
-	 PreviousButton2.setText("Back");
-	 PreviousButton2.setBackground(Color.WHITE);
-	 PreviousButton2.setFont(new Font("MV Boli",Font.BOLD ,40));
-	 PreviousButton2.setFocusable(false);
-	 PreviousButton2.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
+		}});	 	 
+		PreviousButton2 = new JButton();
+		PreviousButton2.setBounds(40, 650, 250, 100);
+		PreviousButton2.setText("Back");
+		PreviousButton2.setBackground(Color.WHITE);
+		PreviousButton2.setFont(new Font("MV Boli",Font.BOLD ,40));
+		PreviousButton2.setFocusable(false);
+		PreviousButton2.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
 				Main.changecard("Welcome Panel");
-
 		}});
-
-		 img.setSize(1400,800);
-		 img.setLocation(0,0);
-		 this.add(img, -1);
-		 
+		img.setSize(1400,800);
+		img.setLocation(0,0);
+		this.add(img, -1);
 		this.add(Label, 0);
 		this.add(SwitchButton2, 0);
 		this.add(PreviousButton2, 0);
 		this.add(TaskCount, 0);
 		this.add(ConfirmButton, 0);
-		
+	}
+	public static int getTaskCount(){
+		try{
+			return Integer.parseInt(TaskCount.getText());//Integer.parseInt = converts string into integer.
+		}
+		catch (NumberFormatException e){
+			return -1;
+		}
+	}
 
-	}
-	public static int getTaskCount() 
-	{
-	    try
-	    {
-	        return Integer.parseInt(TaskCount.getText());//Integer.parseInt = converts string into integer.
-	    } 
-	    catch (NumberFormatException e)
-	    {
-	        return -1;
-	    }
-	}
 	//JOptionPane = dialog box inform user of something.
-   // shows temprory messege.
+	//shows temprory messege.
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-	int Count = getTaskCount();
-	if(Count <= 0)
-	   
-    {
-        JOptionPane.showMessageDialog(this, "Error!!,Please enter a valid number of tasks.");
-    }
-	else
-	{
-		 JOptionPane.showMessageDialog(this, "OK Now you can start .Wishing you a productive day.");	
+	public void actionPerformed(ActionEvent e){
+		int Count = getTaskCount();
+		if(Count <= 0)
+			JOptionPane.showMessageDialog(this, "Error!!,Please enter a valid number of tasks.");
+		else
+			JOptionPane.showMessageDialog(this, "OK Now you can start .Wishing you a productive day.");
 	}
- }
 }
